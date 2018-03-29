@@ -10,4 +10,10 @@ logger = getLogger(__name__)
 class KaocClientTests(TestCase):
 
     def setUp(self):
-        logger.debug('KaocClientTests setup')
+        ...
+
+    def test_initclient(self):
+
+        redirect_uri = 'https://watashi.me.local/callback'
+        client = KaocClient(redirect_uri)
+        self.assertEquals(redirect_uri, client.redirect_uri)

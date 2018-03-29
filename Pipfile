@@ -4,14 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+Django = "*"
 requests = "*"
 
 [dev-packages]
+twine = "*"
 jedi = "*"
 "flake8" = "*"
-tox = "*"
-twine = "*"
 
 [requires]
 python_version = "3.6"
