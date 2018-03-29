@@ -24,7 +24,8 @@ class Start(View):
         chars = string.ascii_letters + string.digits
         stored_nonce = ''.join([random.choice(chars) for i in range(6)])
         request.session['stored_nonce'] = stored_nonce
-        client = KaocClient(reverse('kantanoidc:callback'))
+        client = KaocClient(
+                request.build_absolute_uri(reverse('kantanoidc:callback')))
         return HttpResponseRedirect(client.build_starturl(stored_nonce))
 
 
@@ -35,9 +36,10 @@ class Callback(View):
     def get(self, request, *args, **kwargs):
         stored_nonce = request.session['stored_nonce']
         code = request.GET.get('code')
-        client = KaocClient(reverse('kantanoidc:callback'))
+        client = KaocClient(
+                request.build_absolute_uri(reverse('kantanoidc:callback')))
         sub = client.get_sub(code, stored_nonce)
-        logger.debug(sub)
+        logger.debug('sub=%s', sub)
         user = User.objects.get_by_natural_key(sub)
         login(request, user)
         return HttpResponseRedirect(redirect_url)

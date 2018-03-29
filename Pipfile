@@ -10,6 +10,8 @@ requests = "*"
 [dev-packages]
 jedi = "*"
 "flake8" = "*"
+tox = "*"
+twine = "*"
 
 [requires]
 python_version = "3.6"
