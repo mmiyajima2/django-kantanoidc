@@ -1,7 +1,9 @@
 # -*- coding: utf8 -*-
 from django.test import TestCase
+from unittest.mock import patch
 from logging import getLogger
 from kantanoidc.client import KaocClient
+from tests.mocks import get_asmock, post_asmock
 
 
 logger = getLogger(__name__)
@@ -26,3 +28,20 @@ class KaocClientTests(TestCase):
         logger.debug(client.token_endpoint)
         self.assertIsNotNone(client.userinfo_endpoint)
         logger.debug(client.userinfo_endpoint)
+
+    def test_build_starturl(self):
+
+        redirect_uri = 'https://test'
+        client = KaocClient(redirect_uri)
+        nonce = 'hogehoge'
+        result = client.build_starturl(nonce)
+        logger.debug(result)
+
+    @patch('kantanoidc.client.requests.post', new=post_asmock)
+    @patch('kantanoidc.client.requests.get', new=get_asmock)
+    def test_get_sub(self):
+
+        redirect_uri = 'https://test'
+        client = KaocClient(redirect_uri)
+        sub = client.get_sub('codevalue', 'noncevalue')
+        self.assertEquals("me", sub)
