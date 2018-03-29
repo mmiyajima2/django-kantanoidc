@@ -11,6 +11,7 @@ requests = "*"
 twine = "*"
 jedi = "*"
 "flake8" = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.6"
