@@ -3,7 +3,10 @@ from django.test import TestCase
 from unittest.mock import patch
 from logging import getLogger
 from kantanoidc.client import KaocClient
-from tests.mocks import get_asmock, post_asmock
+from kantanoidc.errors import IdTokenVerificationError
+from tests.mocks import post_normal, get_normal
+from tests.mocks import post_abn_aud
+from tests.mocks import post_abn_exp
 
 
 logger = getLogger(__name__)
@@ -37,11 +40,47 @@ class KaocClientTests(TestCase):
         result = client.build_starturl(nonce)
         logger.debug(result)
 
-    @patch('kantanoidc.client.requests.post', new=post_asmock)
-    @patch('kantanoidc.client.requests.get', new=get_asmock)
+    @patch('kantanoidc.client.requests.post', new=post_normal)
+    @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub(self):
 
         redirect_uri = 'https://test'
         client = KaocClient(redirect_uri)
         sub = client.get_sub('codevalue', 'noncevalue')
         self.assertEquals("me", sub)
+
+    @patch('kantanoidc.client.requests.post', new=post_abn_aud)
+    @patch('kantanoidc.client.requests.get', new=get_normal)
+    def test_get_sub_abn_aud(self):
+
+        redirect_uri = 'https://test'
+        client = KaocClient(redirect_uri)
+        with self.assertRaises(
+                IdTokenVerificationError, msg='aud <> client_id'):
+            client.get_sub('codevalue', 'noncevalue')
+
+    @patch(
+        'kantanoidc.client.requests.post',
+        new=post_normal
+    )
+    @patch('kantanoidc.client.requests.get', new=get_normal)
+    def test_get_sub_abn_nonce(self):
+
+        redirect_uri = 'https://test'
+        client = KaocClient(redirect_uri)
+        with self.assertRaises(
+                IdTokenVerificationError, msg='nonce <> stored_nonce'):
+            client.get_sub('codevalue', '1noncevalue')
+
+    @patch(
+        'kantanoidc.client.requests.post',
+        new=post_abn_exp
+    )
+    @patch('kantanoidc.client.requests.get', new=get_normal)
+    def test_get_sub_abn_exp(self):
+
+        redirect_uri = 'https://test'
+        client = KaocClient(redirect_uri)
+        with self.assertRaises(
+                IdTokenVerificationError, msg='now > exp'):
+            client.get_sub('codevalue', 'noncevalue')

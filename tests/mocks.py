@@ -10,11 +10,16 @@ logger = getLogger(__name__)
 
 class MockTokenResponse(object):
 
+    def __init__(self, exp, aud, nonce):
+        self.exp = exp
+        self.aud = aud
+        self.nonce = nonce
+
     def json(self):
         data = {
-            'exp': (time.time() + 1000000),
-            'aud': 'id',
-            'nonce': 'noncevalue',
+            'exp': self.exp,
+            'aud': self.aud,
+            'nonce': self.nonce,
         }
         astext = json.dumps(data)
         asbin = base64.b64encode(astext.encode('utf8'))
@@ -30,13 +35,31 @@ class MockUserinfoResponse(object):
         return {'sub': 'me'}
 
 
-def post_asmock(url, data=None):
+def post_normal(url, data=None):
     logger.debug('post_asmock')
     logger.debug('url=%s', url)
-    return MockTokenResponse()
+    return MockTokenResponse(
+        (time.time() + 10000), 'id', 'noncevalue'
+    )
 
 
-def get_asmock(url, params=None):
+def post_abn_aud(url, data=None):
+    logger.debug('post_asmock')
+    logger.debug('url=%s', url)
+    return MockTokenResponse(
+        (time.time() + 10000), 'abnid', 'noncevalue'
+    )
+
+
+def post_abn_exp(url, data=None):
+    logger.debug('post_asmock')
+    logger.debug('url=%s', url)
+    return MockTokenResponse(
+        (time.time() - 100), 'id', 'noncevalue'
+    )
+
+
+def get_normal(url, params=None):
     logger.debug('get_asmock')
     logger.debug('url=%s', url)
     return MockUserinfoResponse()
