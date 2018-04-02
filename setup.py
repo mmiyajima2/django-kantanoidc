@@ -12,6 +12,9 @@ setup(
     license='MIT',
     description='Helper app as oidc client',
     long_description=README,
+    url='https://github.com/mmiyajima2/django-kantanoidc',
+    author='Masafumi Miyajima',
+    author_email='mmiyajima2@gmail.com',
     install_requires=[
         'django',
         'requests',
