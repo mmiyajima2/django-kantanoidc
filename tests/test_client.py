@@ -4,9 +4,9 @@ from unittest.mock import patch
 from logging import getLogger
 from kantanoidc.client import client
 from kantanoidc.errors import IdTokenVerificationError
-from tests.mocks import post_normal, get_normal
-from tests.mocks import post_abn_aud
-from tests.mocks import post_abn_exp
+from .mocks import post_normal, get_normal
+from .mocks import post_abn_aud
+from .mocks import post_abn_exp
 
 
 logger = getLogger(__name__)

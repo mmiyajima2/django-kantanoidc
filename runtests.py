@@ -11,7 +11,7 @@ def runtests():
     django.setup()
     TestRunner = get_runner(settings)
     test_runner = TestRunner()
-    failures = test_runner.run_tests(['tests'])
+    failures = test_runner.run_tests(['tests.test_client'])
     sys.exit(bool(failures))
 
 
