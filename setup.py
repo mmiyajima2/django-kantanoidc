@@ -7,7 +7,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as rme:
 
 setup(
     name='django-kantanoidc',
-    version='0.1',
+    version='0.2',
     packages=['kantanoidc'],
     license='MIT',
     description='Helper app as oidc client',
