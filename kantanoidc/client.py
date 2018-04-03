@@ -17,20 +17,17 @@ AUTH_SERVER = settings.KAOC_SERVER
 CLIENT_ID = settings.KAOC_CLIENT_ID
 CLIENT_SECRET = settings.KAOC_CLIENT_SECRET
 CONFIG_PATH = '/.well-known/openid-configuration'
-AEP = None
-TEP = None
-UEP = None
 client = None
 
 
 class KaocClient(object):
 
-    def __init__(self):
+    def __init__(self, aep, tep, uep):
         self.client_id = CLIENT_ID
         self.client_secret = CLIENT_SECRET
-        self.authorization_endpoint = AEP
-        self.token_endpoint = TEP
-        self.userinfo_endpoint = UEP
+        self.authorization_endpoint = aep
+        self.token_endpoint = tep
+        self.userinfo_endpoint = uep
 
     def build_starturl(self, stored_nonce):
         params = {
@@ -75,7 +72,7 @@ class KaocClient(object):
     def __verify_id_token(self, id_token, stored_nonce):
         payload = id_token.split('.')[1]
         asobject = json.loads(base64.b64decode(payload.encode()))
-        logger.debug(str(asobject))
+        logger.debug('%s', asobject)
         if (self.client_id != asobject['aud']):
             raise IdTokenVerificationError('aud <> client_id')
         if (stored_nonce != asobject['nonce']):
@@ -85,18 +82,16 @@ class KaocClient(object):
 
 
 def initmod():
-    global AEP
-    global TEP
-    global UEP
     global client
     r = requests.get(
         url=(AUTH_SERVER + CONFIG_PATH),
     )
     asobject = r.json()
-    AEP = asobject['authorization_endpoint']
-    TEP = asobject['token_endpoint']
-    UEP = asobject['userinfo_endpoint']
-    client = KaocClient()
+    client = KaocClient(
+        asobject['authorization_endpoint'],
+        asobject['token_endpoint'],
+        asobject['userinfo_endpoint']
+    )
 
 
 initmod()
