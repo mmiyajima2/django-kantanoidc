@@ -3,3 +3,7 @@
 
 class IdTokenVerificationError(Exception):
     ...
+
+
+class IllegalStateError(Exception):
+    ...

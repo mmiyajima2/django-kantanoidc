@@ -34,7 +34,7 @@ class KaocClientTests(TestCase):
 
         client.redirect_uri = 'https://test'
         nonce = 'hogehoge'
-        result = client.build_starturl(nonce)
+        result = client.build_starturl(nonce, 'statevalue')
         logger.debug(result)
 
     @patch('kantanoidc.client.requests.post', new=post_normal)

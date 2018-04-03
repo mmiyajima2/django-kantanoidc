@@ -29,13 +29,14 @@ class KaocClient(object):
         self.token_endpoint = tep
         self.userinfo_endpoint = uep
 
-    def build_starturl(self, stored_nonce):
+    def build_starturl(self, stored_nonce, stored_state):
         params = {
             'response_type': 'code',
             'client_id': self.client_id,
             'redirect_uri': self.redirect_uri,
             'scope': 'openid email',
             'nonce': stored_nonce,
+            'state': stored_state,
         }
         return (
             '%s?%s' % (self.authorization_endpoint, parse.urlencode(params))

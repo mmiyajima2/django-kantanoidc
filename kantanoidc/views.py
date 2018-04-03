@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.urls import reverse
 from .client import client
+from .errors import IllegalStateError
 import string
 import random
 
@@ -22,12 +23,14 @@ class Start(View):
 
     def get(self, request, *args, **kwargs):
         chars = string.ascii_letters + string.digits
-        stored_nonce = ''.join([random.choice(chars) for i in range(6)])
+        stored_nonce = ''.join([random.choice(chars) for i in range(16)])
+        stored_state = ''.join([random.choice(chars) for i in range(16)])
         request.session['stored_nonce'] = stored_nonce
+        request.session['stored_state'] = stored_state
         # Initialize redirect_uri
         client.redirect_uri = \
             request.build_absolute_uri(reverse('kantanoidc:callback'))
-        return HttpResponseRedirect(client.build_starturl(stored_nonce))
+        return HttpResponseRedirect(client.build_starturl(stored_nonce, stored_state))
 
 
 class Callback(View):
@@ -35,8 +38,11 @@ class Callback(View):
     http_method_names = ['get']
 
     def get(self, request, *args, **kwargs):
-        stored_nonce = request.session['stored_nonce']
+        state = request.GET.get('state')
+        if state != request.session['stored_state']:
+            raise IllegalStateError('state <> stored_state')
         code = request.GET.get('code')
+        stored_nonce = request.session['stored_nonce']
         sub = client.get_sub(code, stored_nonce)
         logger.debug('sub=%s', sub)
         user = User.objects.get_by_natural_key(sub)

@@ -36,7 +36,6 @@ class MockUserinfoResponse(object):
 
 
 def post_normal(url, data=None):
-    logger.debug('post_asmock')
     logger.debug('url=%s', url)
     return MockTokenResponse(
         (time.time() + 10000), 'id', 'noncevalue'
@@ -44,7 +43,6 @@ def post_normal(url, data=None):
 
 
 def post_abn_aud(url, data=None):
-    logger.debug('post_asmock')
     logger.debug('url=%s', url)
     return MockTokenResponse(
         (time.time() + 10000), 'abnid', 'noncevalue'
@@ -52,7 +50,6 @@ def post_abn_aud(url, data=None):
 
 
 def post_abn_exp(url, data=None):
-    logger.debug('post_asmock')
     logger.debug('url=%s', url)
     return MockTokenResponse(
         (time.time() - 100), 'id', 'noncevalue'
@@ -60,6 +57,5 @@ def post_abn_exp(url, data=None):
 
 
 def get_normal(url, params=None):
-    logger.debug('get_asmock')
     logger.debug('url=%s', url)
     return MockUserinfoResponse()
