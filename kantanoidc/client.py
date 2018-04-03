@@ -9,6 +9,7 @@ import time
 from .errors import IdTokenVerificationError
 
 
+__all__ = ['client']
 logger = getLogger(__name__)
 
 
@@ -19,14 +20,14 @@ CONFIG_PATH = '/.well-known/openid-configuration'
 AEP = None
 TEP = None
 UEP = None
+client = None
 
 
 class KaocClient(object):
 
-    def __init__(self, redirect_uri):
+    def __init__(self):
         self.client_id = CLIENT_ID
         self.client_secret = CLIENT_SECRET
-        self.redirect_uri = redirect_uri
         self.authorization_endpoint = AEP
         self.token_endpoint = TEP
         self.userinfo_endpoint = UEP
@@ -87,6 +88,7 @@ def initmod():
     global AEP
     global TEP
     global UEP
+    global client
     r = requests.get(
         url=(AUTH_SERVER + CONFIG_PATH),
     )
@@ -94,6 +96,7 @@ def initmod():
     AEP = asobject['authorization_endpoint']
     TEP = asobject['token_endpoint']
     UEP = asobject['userinfo_endpoint']
+    client = KaocClient()
 
 
 initmod()
