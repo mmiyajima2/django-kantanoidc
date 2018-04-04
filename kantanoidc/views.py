@@ -23,14 +23,16 @@ class Start(View):
 
     def get(self, request, *args, **kwargs):
         chars = string.ascii_letters + string.digits
-        stored_nonce = ''.join([random.choice(chars) for i in range(16)])
-        stored_state = ''.join([random.choice(chars) for i in range(16)])
+        stored_nonce = ''.join([random.choice(chars) for i in range(32)])
+        stored_state = ''.join([random.choice(chars) for i in range(32)])
         request.session['stored_nonce'] = stored_nonce
         request.session['stored_state'] = stored_state
         # Initialize redirect_uri
         client.redirect_uri = \
             request.build_absolute_uri(reverse('kantanoidc:callback'))
-        return HttpResponseRedirect(client.build_starturl(stored_nonce, stored_state))
+        return HttpResponseRedirect(
+            client.build_starturl(stored_nonce, stored_state)
+        )
 
 
 class Callback(View):

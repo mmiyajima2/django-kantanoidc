@@ -72,6 +72,9 @@ class KaocClient(object):
 
     def __verify_id_token(self, id_token, stored_nonce):
         payload = id_token.split('.')[1]
+        surplus = len(payload) % 4
+        if surplus > 0:
+            payload += ('=' * (4 - surplus))
         asobject = json.loads(base64.b64decode(payload.encode()))
         logger.debug('%s', asobject)
         if (self.client_id != asobject['aud']):
