@@ -11,7 +11,7 @@ requests = {version="*", index="pypi"}
 twine = {version="*", index="pypi"}
 jedi = {version="*", index="pypi"}
 "flake8" = {version="*", index="pypi"}
-coverage = {version="*", index="pypi"}
+coveralls = "*"
 
 [requires]
 python_version = "3.6"

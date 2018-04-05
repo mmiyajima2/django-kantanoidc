@@ -1,3 +1,0 @@
-export KAOC_SERVER='https://accounts.google.com'
-export KAOC_CLIENT_ID='id'
-export KAOC_CLIENT_SECRET='secret'
