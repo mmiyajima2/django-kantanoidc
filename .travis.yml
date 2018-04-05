@@ -1,8 +1,6 @@
 language: python
 python:
     - "3.6"
-env:
-    - KAOC_SERVER="https://accounts.google.com" KAOC_CLIENT_ID="id" KAOC_CLIENT_SECRET="secret"
 
 install:
     - pip install tox-travis
