@@ -10,10 +10,11 @@ logger = getLogger(__name__)
 
 class MockTokenResponse(object):
 
-    def __init__(self, exp, aud, nonce):
+    def __init__(self, exp, aud, nonce, b64pad=True):
         self.exp = exp
         self.aud = aud
         self.nonce = nonce
+        self.b64pad = b64pad
 
     def json(self):
         data = {
@@ -24,6 +25,10 @@ class MockTokenResponse(object):
         astext = json.dumps(data)
         asbin = base64.b64encode(astext.encode('utf8'))
         payload = asbin.decode()
+        logger.debug("b payload=%s", payload)
+        if not self.b64pad:
+            payload = payload.replace("=", "")
+        logger.debug("a payload=%s", payload)
         id_token = 'header.%s' % payload
         logger.debug('id_token=%s', id_token)
         return {'access_token': 'fugafuga', 'id_token': id_token}
@@ -39,6 +44,16 @@ def post_normal(url, data=None):
     logger.debug('url=%s', url)
     return MockTokenResponse(
         (time.time() + 10000), 'id', 'noncevalue'
+    )
+
+
+def post_abn_nonce(url, data=None):
+    logger.debug('url=%s', url)
+    return MockTokenResponse(
+        (time.time() + 10000),
+        'id',
+        'xxxxxxxxxxxxxxxxxxxxxxxx',
+        False,
     )
 
 

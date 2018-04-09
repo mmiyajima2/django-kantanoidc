@@ -7,6 +7,7 @@ from kantanoidc.errors import IdTokenVerificationError
 from .mocks import post_normal, get_normal
 from .mocks import post_abn_aud
 from .mocks import post_abn_exp
+from .mocks import post_abn_nonce
 
 
 logger = getLogger(__name__)
@@ -56,7 +57,7 @@ class KaocClientTests(TestCase):
 
     @patch(
         'kantanoidc.client.requests.post',
-        new=post_normal
+        new=post_abn_nonce
     )
     @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub_abn_nonce(self):
@@ -64,7 +65,7 @@ class KaocClientTests(TestCase):
         client.redirect_uri = 'https://test'
         with self.assertRaises(
                 IdTokenVerificationError, msg='nonce <> stored_nonce'):
-            client.get_sub('codevalue', '1noncevalue')
+            client.get_sub('codevalue', 'noncevalue')
 
     @patch(
         'kantanoidc.client.requests.post',
