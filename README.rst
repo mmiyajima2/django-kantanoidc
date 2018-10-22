@@ -6,8 +6,11 @@ KANTAN oidc
 .. image:: https://coveralls.io/repos/github/mmiyajima2/django-kantanoidc/badge.svg?branch=master
     :target: https://coveralls.io/github/mmiyajima2/django-kantanoidc?branch=master
 
-This behaves OpenID Connect client for Django helper app.
+It behaves like OpenID Connect client as Django helper app.
 KANTAN means "simple" or, "naive"..
 
 Installation
 --------------
+
+.. code-block:: python
+   shell>pip install django_kantanoidc
