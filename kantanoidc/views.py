@@ -3,8 +3,6 @@ from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.utils import module_loading
 from django.urls import reverse
 from .client import client
 from .errors import IllegalStateError
@@ -13,10 +11,6 @@ import random
 
 
 logger = getLogger(__name__)
-
-# DI(Nexturl after authentication depends on the project)
-_Builder = module_loading.import_string(settings.KAOC_NEXTURL_BUILDER)
-_nexturl_builder = _Builder()
 
 
 class Start(View):
@@ -32,7 +26,7 @@ class Start(View):
         # Prepare for this context
         if 'context_id' in request.GET:
             context_id = request.GET['context_id']
-            _nexturl_builder.prepare(request, context_id)
+            client.prepare(request, context_id)
             request.session['context_id'] = context_id
         client.redirect_uri = \
             request.build_absolute_uri(reverse('kantanoidc:callback'))

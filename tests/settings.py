@@ -118,7 +118,7 @@ STATIC_URL = '/static/'
 KAOC_SERVER = os.getenv('KAOC_SERVER')
 KAOC_CLIENT_ID = os.getenv('KAOC_CLIENT_ID')
 KAOC_CLIENT_SECRET = os.getenv('KAOC_CLIENT_SECRET')
-KAOC_NEXTURL_BUILDER = os.getenv('KAOC_NEXTURL_BUILDER')
+KAOC_EXTENDER = 'tests.extenders.KaocExtender'
 
 LOGGING = {
     'version': 1,

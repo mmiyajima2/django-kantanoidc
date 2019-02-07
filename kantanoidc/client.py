@@ -1,6 +1,7 @@
 # -*- condig: utf8 -*-
 from logging import getLogger
 from django.conf import settings
+from django.utils import module_loading
 from urllib import parse
 import requests
 import base64
@@ -28,6 +29,18 @@ class KaocClient(object):
         self.authorization_endpoint = aep
         self.token_endpoint = tep
         self.userinfo_endpoint = uep
+        if hasattr(settings, 'KAOC_EXPANDER'):
+            Expander = module_loading.import_string(settings.KAOC_EXPANDER)
+            self.expander = Expander()
+        else:
+            self.expander = None
+
+    def prepare(self, request, context_id):
+        self.request = request
+        self.context_id = context_id
+        if self.expander is None:
+            return
+        self.expander.prepare(request, context_id)
 
     def build_starturl(self, stored_nonce, stored_state):
         params = {
@@ -38,9 +51,17 @@ class KaocClient(object):
             'nonce': stored_nonce,
             'state': stored_state,
         }
+        if self.expander and hasattr(self.expander, 'acr_values'):
+            params.update['acr_values'] = self.expander.acr_values()
         return (
             '%s?%s' % (self.authorization_endpoint, parse.urlencode(params))
         )
+
+    def build_nexturl(self):
+        if self.expander is None:
+            return settings.LOGIN_REDIRECT_URL
+        else:
+            return self.expander.build_nexturl()
 
     def get_sub(self, code, stored_nonce):
         token = self.__get_token(code, stored_nonce)
@@ -83,6 +104,8 @@ class KaocClient(object):
             raise IdTokenVerificationError('nonce <> stored_nonce')
         if (time.time() > asobject['exp']):
             raise IdTokenVerificationError('now > exp')
+        if self.expander and hasattr(self.expander, 'verify_acr'):
+            self.expander.verify_acr()
 
 
 def initmod():
