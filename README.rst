@@ -70,5 +70,5 @@ KAOC_EXTENDER (Optional)
 
 Default: ``None``
 
-Extend authentication flow.
+Extend a basic authentication flow.
 
