@@ -53,5 +53,5 @@ class Callback(View):
         context_id = None
         if 'context_id' in request.session:
             context_id = request.session['context_id']
-        nexturl = _nexturl_builder.build(request, context_id)
+        nexturl = client.build_nexturl(request, context_id)
         return HttpResponseRedirect(nexturl)

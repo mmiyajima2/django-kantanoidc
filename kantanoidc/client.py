@@ -36,8 +36,6 @@ class KaocClient(object):
             self.expander = None
 
     def prepare(self, request, context_id):
-        self.request = request
-        self.context_id = context_id
         if self.expander is None:
             return
         self.expander.prepare(request, context_id)
@@ -57,11 +55,11 @@ class KaocClient(object):
             '%s?%s' % (self.authorization_endpoint, parse.urlencode(params))
         )
 
-    def build_nexturl(self):
+    def build_nexturl(self, request, context_id):
         if self.expander is None:
             return settings.LOGIN_REDIRECT_URL
         else:
-            return self.expander.build_nexturl()
+            return self.build_nexturl(request, context_id)
 
     def get_sub(self, code, stored_nonce):
         token = self.__get_token(code, stored_nonce)
