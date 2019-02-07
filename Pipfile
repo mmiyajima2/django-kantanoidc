@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-Django = {version=">= 2.0.8", index="pypi"}
+Django = {version=">= 2.1.5", index="pypi"}
 requests = {version="*", index="pypi"}
 
 [dev-packages]
@@ -14,4 +14,4 @@ jedi = {version="*", index="pypi"}
 coveralls = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
