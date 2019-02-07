@@ -1,8 +1,9 @@
 import os
 from setuptools import setup
 
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as rme:
-    README = rme.read()
+
+def read(fname):
+    return open(os.path.jo(os.path.dirname(__file__), fname)).read()
 
 
 setup(
@@ -11,7 +12,8 @@ setup(
     packages=['kantanoidc'],
     license='MIT',
     description='Helper app as oidc client',
-    long_description=README,
+    long_description=read('README.rst'),
+    keywords='django oidc',
     url='https://github.com/mmiyajima2/django-kantanoidc',
     author='Masafumi Miyajima',
     author_email='mmiyajima2@gmail.com',
