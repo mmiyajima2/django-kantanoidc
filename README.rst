@@ -15,7 +15,7 @@ Installation
 
 .. code-block:: bash
 
-   shell>pip install django_kantanoidc
+   shell>pip install djangokantanoidc
 
 
 Usage
