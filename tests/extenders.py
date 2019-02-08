@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-from django.conf import settings
 from kantanoidc.errors import IdTokenVerificationError
 
 
@@ -17,4 +16,4 @@ class KaocExtender:
         raise IdTokenVerificationError('invalid acr')
 
     def build_nexturl(self, request):
-        return settings.LOGIN_REDIRECT_URL
+        return 'https://ext'

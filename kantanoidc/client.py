@@ -59,7 +59,7 @@ class KaocClient(object):
         if self.extender is None:
             return settings.LOGIN_REDIRECT_URL
         else:
-            return self.build_nexturl(request)
+            return self.extender.build_nexturl(request)
 
     def get_sub(self, code, stored_nonce):
         token = self.__get_token(code, stored_nonce)

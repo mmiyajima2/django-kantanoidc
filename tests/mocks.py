@@ -45,7 +45,7 @@ class MockUserinfoResponse(object):
 def post_normal(url, data=None):
     logger.debug('url=%s', url)
     return MockTokenResponse(
-        (time.time() + 10000), 'id', 'noncevalue', 'ext'
+        (time.time() + 10000), 'id', 'noncevalue', 'ext', False
     )
 
 

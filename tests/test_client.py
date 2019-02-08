@@ -36,6 +36,10 @@ class KaocClientTests(TestCase):
         logger.debug(result)
         self.assertTrue('acr_values=ext' in result)
 
+    def test_build_nexturl(self):
+        result = client.build_nexturl({})
+        self.assertEquals('https://ext', result)
+
     @patch('kantanoidc.client.requests.post', new=post_normal)
     @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub(self):
