@@ -50,7 +50,8 @@ class KaocClient(object):
             'state': stored_state,
         }
         if self.extender and hasattr(self.extender, 'acr_values'):
-            params['acr_values'] = self.extender.acr_values()
+            if self.extender.acr_values():
+                params['acr_values'] = self.extender.acr_values()
         return (
             '%s?%s' % (self.authorization_endpoint, parse.urlencode(params))
         )
@@ -103,7 +104,7 @@ class KaocClient(object):
         if (time.time() > asobject['exp']):
             raise IdTokenVerificationError('now > exp')
         if self.extender and hasattr(self.extender, 'verify_acr'):
-            self.extender.verify_acr(asobject['acr'])
+            self.extender.verify_acr(asobject)
 
 
 def initmod():

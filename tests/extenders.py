@@ -10,8 +10,8 @@ class KaocExtender:
     def acr_values(self):
         return 'ext'
 
-    def verify_acr(self, values):
-        if values == 'ext':
+    def verify_acr(self, id_token):
+        if 'acr' in id_token and id_token['acr'] == 'ext':
             return
         raise IdTokenVerificationError('invalid acr')
 
