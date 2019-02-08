@@ -14,9 +14,9 @@ __all__ = ['client']
 logger = getLogger(__name__)
 
 
-AUTH_SERVER = settings.KAOC_SERVER
-CLIENT_ID = settings.KAOC_CLIENT_ID
-CLIENT_SECRET = settings.KAOC_CLIENT_SECRET
+AUTH_SERVER = getattr(settings, 'KAOC_SERVER', '')
+CLIENT_ID = getattr(settings, 'KAOC_CLIENT_ID', '')
+CLIENT_SECRET = getattr(settings, 'KAOC_CLIENT_SECRET', '')
 CONFIG_PATH = '/.well-known/openid-configuration'
 client = None
 
@@ -29,37 +29,37 @@ class KaocClient(object):
         self.authorization_endpoint = aep
         self.token_endpoint = tep
         self.userinfo_endpoint = uep
-        if hasattr(settings, 'KAOC_EXPANDER'):
-            Expander = module_loading.import_string(settings.KAOC_EXPANDER)
-            self.expander = Expander()
+        if hasattr(settings, 'KAOC_EXTENDER'):
+            Extender = module_loading.import_string(settings.KAOC_EXTENDER)
+            self.extender = Extender()
         else:
-            self.expander = None
+            self.extender = None
 
-    def prepare(self, request, context_id):
-        if self.expander is None:
+    def prepare(self, request):
+        if self.extender is None:
             return
-        self.expander.prepare(request, context_id)
+        self.extender.prepare(request)
 
-    def build_starturl(self, stored_nonce, stored_state):
+    def build_starturl(self, redirect_uri, stored_nonce, stored_state):
         params = {
             'response_type': 'code',
             'client_id': self.client_id,
-            'redirect_uri': self.redirect_uri,
+            'redirect_uri': redirect_uri,
             'scope': 'openid email',
             'nonce': stored_nonce,
             'state': stored_state,
         }
-        if self.expander and hasattr(self.expander, 'acr_values'):
-            params.update['acr_values'] = self.expander.acr_values()
+        if self.extender and hasattr(self.extender, 'acr_values'):
+            params['acr_values'] = self.extender.acr_values()
         return (
             '%s?%s' % (self.authorization_endpoint, parse.urlencode(params))
         )
 
-    def build_nexturl(self, request, context_id):
-        if self.expander is None:
+    def build_nexturl(self, request):
+        if self.extender is None:
             return settings.LOGIN_REDIRECT_URL
         else:
-            return self.build_nexturl(request, context_id)
+            return self.build_nexturl(request)
 
     def get_sub(self, code, stored_nonce):
         token = self.__get_token(code, stored_nonce)
@@ -102,8 +102,8 @@ class KaocClient(object):
             raise IdTokenVerificationError('nonce <> stored_nonce')
         if (time.time() > asobject['exp']):
             raise IdTokenVerificationError('now > exp')
-        if self.expander and hasattr(self.expander, 'verify_acr'):
-            self.expander.verify_acr()
+        if self.extender and hasattr(self.extender, 'verify_acr'):
+            self.extender.verify_acr(asobject['acr'])
 
 
 def initmod():

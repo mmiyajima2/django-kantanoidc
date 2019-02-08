@@ -46,29 +46,28 @@ Settings
 KAOC_SERVER
 ---------------
 
-Default: ``No default``
+Default: ``''``
 
 OpenID Connect Authorization Server URL.
 
 KAOC_CLIENT_ID
 ---------------
 
-Default: ``No default``
+Default: ``''``
 
 Client ID.
 
 KAOC_CLIENT_SECRET
----------------
+------------------
 
-Default: ``No default``
+Default: ``''``
 
 Client secret.
 
 
 KAOC_EXTENDER (Optional)
---------------------
+-------------------------
 
 Default: ``None``
 
 Extend a basic authentication flow.
-

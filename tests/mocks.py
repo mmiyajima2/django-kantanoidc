@@ -10,10 +10,11 @@ logger = getLogger(__name__)
 
 class MockTokenResponse(object):
 
-    def __init__(self, exp, aud, nonce, b64pad=True):
+    def __init__(self, exp, aud, nonce, acr, b64pad=True):
         self.exp = exp
         self.aud = aud
         self.nonce = nonce
+        self.acr = acr
         self.b64pad = b64pad
 
     def json(self):
@@ -21,6 +22,7 @@ class MockTokenResponse(object):
             'exp': self.exp,
             'aud': self.aud,
             'nonce': self.nonce,
+            'acr': self.acr,
         }
         astext = json.dumps(data)
         asbin = base64.b64encode(astext.encode('utf8'))
@@ -43,7 +45,7 @@ class MockUserinfoResponse(object):
 def post_normal(url, data=None):
     logger.debug('url=%s', url)
     return MockTokenResponse(
-        (time.time() + 10000), 'id', 'noncevalue'
+        (time.time() + 10000), 'id', 'noncevalue', 'ext'
     )
 
 
@@ -53,6 +55,7 @@ def post_abn_nonce(url, data=None):
         (time.time() + 10000),
         'id',
         'xxxxxxxxxxxxxxxxxxxxxxxx',
+        'invalild',
         False,
     )
 
@@ -60,14 +63,14 @@ def post_abn_nonce(url, data=None):
 def post_abn_aud(url, data=None):
     logger.debug('url=%s', url)
     return MockTokenResponse(
-        (time.time() + 10000), 'abnid', 'noncevalue'
+        (time.time() + 10000), 'abnid', 'noncevalue', 'invalid2'
     )
 
 
 def post_abn_exp(url, data=None):
     logger.debug('url=%s', url)
     return MockTokenResponse(
-        (time.time() - 100), 'id', 'noncevalue'
+        (time.time() - 100), 'id', 'noncevalue', 'invalid3'
     )
 
 

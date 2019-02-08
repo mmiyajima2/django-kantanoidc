@@ -23,15 +23,11 @@ class Start(View):
         stored_state = ''.join([random.choice(chars) for i in range(32)])
         request.session['stored_nonce'] = stored_nonce
         request.session['stored_state'] = stored_state
-        # Prepare for this context
-        if 'context_id' in request.GET:
-            context_id = request.GET['context_id']
-            client.prepare(request, context_id)
-            request.session['context_id'] = context_id
-        client.redirect_uri = \
+        client.prepare(request)
+        redirect_uri = \
             request.build_absolute_uri(reverse('kantanoidc:callback'))
         return HttpResponseRedirect(
-            client.build_starturl(stored_nonce, stored_state)
+            client.build_starturl(redirect_uri, stored_nonce, stored_state)
         )
 
 
@@ -49,9 +45,5 @@ class Callback(View):
         logger.debug('sub=%s', sub)
         user = User.objects.get_by_natural_key(sub)
         login(request, user)
-        # Build url on this context
-        context_id = None
-        if 'context_id' in request.session:
-            context_id = request.session['context_id']
-        nexturl = client.build_nexturl(request, context_id)
+        nexturl = client.build_nexturl(request)
         return HttpResponseRedirect(nexturl)

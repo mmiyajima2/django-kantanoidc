@@ -32,11 +32,9 @@ class KaocClientTests(TestCase):
         logger.debug(client.userinfo_endpoint)
 
     def test_build_starturl(self):
-
-        client.redirect_uri = 'https://test'
-        nonce = 'hogehoge'
-        result = client.build_starturl(nonce, 'statevalue')
+        result = client.build_starturl('https://test', 'hogehoge', 'statevalue') # noqa
         logger.debug(result)
+        self.assertTrue('acr_values=ext' in result)
 
     @patch('kantanoidc.client.requests.post', new=post_normal)
     @patch('kantanoidc.client.requests.get', new=get_normal)
