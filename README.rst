@@ -1,3 +1,4 @@
+
 =====================
 KANTAN oidc (KAOC) 
 =====================
@@ -7,7 +8,7 @@ KANTAN oidc (KAOC)
     :target: https://coveralls.io/github/mmiyajima2/django-kantanoidc?branch=master
 
 KAOC behaves like OpenID Connect client as Django helper application.
-KANTAN means "navie" or, "very simple".
+KANTAN means "naive" or, "very simple".
 
 Installation
 =====================
