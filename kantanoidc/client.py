@@ -41,10 +41,11 @@ class KaocClient(object):
         self.extender.prepare(request)
 
     def build_starturl(self, redirect_uri, stored_nonce, stored_state):
+        self.redirect_uri = redirect_uri
         params = {
             'response_type': 'code',
             'client_id': self.client_id,
-            'redirect_uri': redirect_uri,
+            'redirect_uri': self.redirect_uri,
             'scope': 'openid email',
             'nonce': stored_nonce,
             'state': stored_state,
