@@ -42,8 +42,11 @@ class Callback(View):
         code = request.GET.get('code')
         stored_nonce = request.session['stored_nonce']
         sub = client.get_sub(code, stored_nonce)
-        logger.debug('sub=%s', sub)
-        user = User.objects.get_by_natural_key(sub)
+        try:
+            user = User.objects.get_by_natural_key(sub)
+        except User.DoesNotExist as e:
+            logger.error('username=%s, does not exists', sub)
+            raise e
         login(request, user)
         nexturl = client.build_nexturl(request)
         return HttpResponseRedirect(nexturl)
