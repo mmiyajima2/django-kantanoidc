@@ -1,20 +1,24 @@
 language: python
+
 matrix:
   include:
   - python: 3.6
   - python: 3.7
     dist: xenial
     sudo: true
+
 install:
 - pip install tox-travis
+
 script:
 - tox
+
 deploy:
-  skip_cleanup: true
   provider: pypi
   user: mmiyajima2
   password:
     secure: DQt3VO1Ybw/jaqQ66TGHs9jzmuMiuSOiKOhKzAF9bV05zenTykacTSn0HHrJNGtWuiAZN2jo2y9UD5G+lawjXxqv5G+Mk8tuvtCWy/ZH4cVJT0wxZTvHEKgbvZ5r6brmsfKpvo5cTP+S/spyeCargTHgQ6Gth3GkjfL/pudUO2D/PoCmU9IylLdk/Dc3A95i7CNOEe6cmgb/h/wcMFxFsikQPc08/s6uRR2/CatEUEcWniByy7PuOVR+2xRtl0pAKgpc3YjKfdhzPeOFP+Id5VhIVhNkD9Aveb5WXjDuK67fTKKyfdCwMxS1Usn+nYMZB9GXZxcTJlu1Zzul/DqpdqS7UTqplFeAUd5m/ZLAIbuqpTzXw4vqstt6G++pJEefw88PbCNmly3aWO/28pD8Wz7qZ1OVVyJegBfFHsoQ4MQEbDecvM296v0xQ5+G9lXYMmuMPfcVU9R38E6MnrxIg7T7GSagvTcXBZVeXJGgfwS+LJihuyDDwgH6KVNRszALrQJtX6DvFQO0JNMhrl37+fq08dPP+DUhzH9VFGM94k9SA9nOSDP+2/6FOyOOQvQcOWkjgljvPTrJJOovQFNOOgF1XwyHycnZydsTWyO66iziDtUvGINNkpXBVjR3yIuXx4aCKoqgcUkPxWSpfvLNQPERo0F5iEbpZa0eQGXdapg=
+  skip_cleanup: true
   distributions: sdist bdist_wheel
   on:
     branch: master
