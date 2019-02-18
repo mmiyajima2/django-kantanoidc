@@ -2,25 +2,23 @@ language: python
 
 matrix:
   include:
-    - python: 3.6
-    - python: 3.7
-      dist: xenial
-      sudo: true
+  - python: 3.6
+  - python: 3.7
+    dist: xenial
+    sudo: true
 
 install:
-  - pip install tox-travis
-  - pip install coveralls
+- pip install tox-travis
 
 script:
-  - tox
-
-after_success: coveralls
+- tox
 
 deploy:
   provider: pypi
-  uesr: "mmiyajima2"
+  uesr: mmiyajima2
   password:
-    secure: "dcZEiEZr6dIKq8mgEZp894FZ7uOf1kKpIaqQ6pFBw+UoxWLGFGuUjBNQ41cCinbTusa6tVrDwOSNUbWRs93K01DyxixfYZlRMKwZH9elQcVMcJvLlBa3FqEWf4DGPALsIKdpYI/m3T7M+is77Wx+uULbllR8O1yw9AFyEGBIG/6fUfff/2lvQiHmDeOxJCFz8R1cK2wiBeSeTO8aIiGzVJ1W9d0RwjrANCKjZIHEsWh/P1puLDxZz2VGfIQa+qb1ZA55MxOn2FD7T1FrZDHnCHm3+BqBu/53ixZYl/Lbn3ZUvDeqowx7dfaq/68QbcHfNfi67lSBKJ/13qkkkAp6Eklwcnu8/L9FZeWuQwTXmCQzbKPE7lfheF6E95swRdAmPsAmbgsFUumJROOEbiky77xyp0Lnv00Rr5io/JCCq4iMt+gPDd/PQ6PTV6qP7CKow5PUU5Cof7NuXs98lDieQSBoarwgaUAgTwnEgojajTa5gyyBZoGnCMhUQ6aNQkAIAJS1HojlwU7dONZ1VW+EjqUdGgEOa4qECdy7Mx0ODhZKu8Rud4BJmyy7FUfu+E4xMZnjaejmk/G7pAJSPaU0DIfLt5OKK7J3NaMVAR62Daunl7fqa8FJ41QzHODmUS9m+Z2rW/ZdCGhi+tQoARnCOtV9kMmRooNnsw9uupQFtxQ="
+    secure: MHLIHH3/ywhMTTT7hVgng4quBEb2skLdo/gigxrJiGvRCoujrCPf/1rz6y0X3TYheQAiWD6W3MN0dfx1As0ZkI26Ugwm1H3gunVl9GQFnE1KRbeDNBmcvDdP1gYQPGtZpBvk74ZfGC3t6WF/e09Dfr8MjnwY6BZkQxT1K9lzj9PtrvlasbHlzN6Cim8KY/npvpBKC1Dvei4J5WS+W66VevBBl2MslsTuABfvP8ATP3v1YZlzyGbG4oQIKL+I09Ai/RH36MPftyZ93XkXz6olffiP4/sdyIG5hxYLjvpcavSlj1WtxGEJLvZK6vdDVSLllRelvS4+ZBXQVzLGAdGdIYKEviUk5BN8vgJrKygi8zs8xcsYcB5BAy9ZrLYpISI5G+dvwfhKIFH8wBHJoJURMm+L+JvhA5QCbl0wHHyX+GtcSfPvOblwyMhpYQ3M5E2ktJfkm97xkFcJkKsPALRDK4vKOw1+DcrxWny3gSDc6rAAIdJK+hYuNzMAbDzAQ/az+6RrVjvyLctmb8Z0zA2jbASdv6/ak4B8K1KjisNtGr3mFQjs/D+vB6ZAdyJtTqCrLpzNhtYUsK/VtCtVlobdZHSOAjY6QRzHWWgP8jU0mPc3ny11H9heoAWqpEY++3+dEsxAvxzoC2EoOcdwCepuTGvwyMfq2rTEN7NYqB00jTQ=
   on:
     branch: master
     python: 3.7
+
