@@ -11,9 +11,9 @@ script:
 - tox
 deploy:
   provider: pypi
+  server: https://testpypi.python.org/pypi
   user: mmiyajima2
-  password:
-    secure: mJF5TObyrE2sj4uLrFx6dtuV7GHt5ic5s3zyqTrCaD6rmVBiIQBo3PVgFL8/nPi4DX42WKzb4y7IjVC/tVnZwFiwwWZnlWSRR7t3+TVb6A+Pm1r0v6h6YSxV71S5IggQUEH3eEfDPOnrZAEljHd+s4CNlAMHpO9hBF8GAOtdMYG7iaBBt4Kc0j4PntOhshe5gi/0f5PCXlTmMBET4pke704Cyi2+KomcgkEM29gU/g3tCT6nv+1YeOlLZBWCZPfpUrE+76L9fQMDor3P/9H07cmmL/xGU8CeKbh6TJFAqafp69WqhiYgem2F2dM0YK/kL67KnCjdSDgZ+HDj9wlEETRd+1K9TDvFYsJ9Iw5VnVcLHiSIi9BqyI2P017GE3rNCbuWYX0wPEDuCrVTd4pp7Rq42W1hndgKZfllaQRcFKnl3ExZoSq2SFr+/a1NcxhO92VopMXEKAqqetNVtudH9YTer+A518crDIQIgLAOtNlNTIc6WYsXrzp9+RTY66hgOtUB4kIVRDUalVWIJJn1N29xMX9dSyO9PT6O3DS5VcntmTHHcOBg4v7Nn90aca+UsJVQRMOUeSLuFh/i+I2PCahgeGWnZfRVMNaNDDr5wUylb7mZ4wN79kz7T1ROFSm62Ye+ShjULiNpQ6muy2rMRU6wxPP/lqNwobQGkt7Q82g=
+  password: bunbunil2
   skip_cleanup: true
   distributions: sdist bdist_wheel
   on:
