@@ -18,6 +18,7 @@ deploy:
   uesr: mmiyajima2
   password:
     secure: MHLIHH3/ywhMTTT7hVgng4quBEb2skLdo/gigxrJiGvRCoujrCPf/1rz6y0X3TYheQAiWD6W3MN0dfx1As0ZkI26Ugwm1H3gunVl9GQFnE1KRbeDNBmcvDdP1gYQPGtZpBvk74ZfGC3t6WF/e09Dfr8MjnwY6BZkQxT1K9lzj9PtrvlasbHlzN6Cim8KY/npvpBKC1Dvei4J5WS+W66VevBBl2MslsTuABfvP8ATP3v1YZlzyGbG4oQIKL+I09Ai/RH36MPftyZ93XkXz6olffiP4/sdyIG5hxYLjvpcavSlj1WtxGEJLvZK6vdDVSLllRelvS4+ZBXQVzLGAdGdIYKEviUk5BN8vgJrKygi8zs8xcsYcB5BAy9ZrLYpISI5G+dvwfhKIFH8wBHJoJURMm+L+JvhA5QCbl0wHHyX+GtcSfPvOblwyMhpYQ3M5E2ktJfkm97xkFcJkKsPALRDK4vKOw1+DcrxWny3gSDc6rAAIdJK+hYuNzMAbDzAQ/az+6RrVjvyLctmb8Z0zA2jbASdv6/ak4B8K1KjisNtGr3mFQjs/D+vB6ZAdyJtTqCrLpzNhtYUsK/VtCtVlobdZHSOAjY6QRzHWWgP8jU0mPc3ny11H9heoAWqpEY++3+dEsxAvxzoC2EoOcdwCepuTGvwyMfq2rTEN7NYqB00jTQ=
+  distributions: "sdist bdist_wheel"
   on:
     branch: master
     python: 3.7
