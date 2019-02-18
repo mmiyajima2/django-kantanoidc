@@ -13,7 +13,8 @@ deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
   user: mmiyajima2
-  password: bunbunil2
+  password:
+    secure: GPiA+ah63AR+Fae3+bVkKOrRNfP8Zg5bhO6jpqs0GB8x9uuWo+LV1so1MFZ8U53pU+lTdGAzSSshAtUy7IvxmpoIkdRS3GLRrsu/TbrT9YW505ZQXHQEYrnqZk+fLwGfOYEz4IPwCna/OwWPZQn6pA2aokXf9KoMfrIs/bfFopejQbnI30qzz5Cp+0tQ6me2tPsU5KFsTZ4rJAEcWZJ8h1hLm/qrsE4sm5tqSJnhP8q5pUtQDWBZDQyT8sNp1r7XhzRVwE04WLFqKgMS0xGYOhpB/ls/wADrIyaDrIJL06d4ua1ZvqLqodU13hHiYC3i1emIY/otJVt/8FsZp1QOLXS+liBYnmHpGPTU9BVMCTd6pSRFKrMdqrqn3jeNcGjcISc4k0ici/bBUGeNB9jsSgjW3YblKXJJZf4KdxA5TvJrv2u//nhQ0rpEgTRdVt/KvSUr/+5/cPlob/0iw4csP9HVqge4DfBgMqEKBejUw+htJyU0M9qsE5ebKJU7kUG4AhH5h5Rzzbb9ghz9/Py6qTNOLmNs3QgJdMvpUFx5tI3Ne4eceluKm2j7V9084LzV5aFvvZ4qV0Sg25pR/8scGILWR4y2yig/npbkpBeQbUr8pCqmYepoaF5xJTVBs7wl2zHZCl6dtFH7IGi+rys1afW4mRI5crYY2mhMi+oMVcE=
   skip_cleanup: true
   distributions: sdist bdist_wheel
   on:
