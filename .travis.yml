@@ -1,25 +1,20 @@
 language: python
-
 matrix:
   include:
   - python: 3.6
   - python: 3.7
     dist: xenial
     sudo: true
-
 install:
 - pip install tox-travis
-
 script:
 - tox
-
 deploy:
   provider: pypi
   user: mmiyajima2
   password:
-    secure: MHLIHH3/ywhMTTT7hVgng4quBEb2skLdo/gigxrJiGvRCoujrCPf/1rz6y0X3TYheQAiWD6W3MN0dfx1As0ZkI26Ugwm1H3gunVl9GQFnE1KRbeDNBmcvDdP1gYQPGtZpBvk74ZfGC3t6WF/e09Dfr8MjnwY6BZkQxT1K9lzj9PtrvlasbHlzN6Cim8KY/npvpBKC1Dvei4J5WS+W66VevBBl2MslsTuABfvP8ATP3v1YZlzyGbG4oQIKL+I09Ai/RH36MPftyZ93XkXz6olffiP4/sdyIG5hxYLjvpcavSlj1WtxGEJLvZK6vdDVSLllRelvS4+ZBXQVzLGAdGdIYKEviUk5BN8vgJrKygi8zs8xcsYcB5BAy9ZrLYpISI5G+dvwfhKIFH8wBHJoJURMm+L+JvhA5QCbl0wHHyX+GtcSfPvOblwyMhpYQ3M5E2ktJfkm97xkFcJkKsPALRDK4vKOw1+DcrxWny3gSDc6rAAIdJK+hYuNzMAbDzAQ/az+6RrVjvyLctmb8Z0zA2jbASdv6/ak4B8K1KjisNtGr3mFQjs/D+vB6ZAdyJtTqCrLpzNhtYUsK/VtCtVlobdZHSOAjY6QRzHWWgP8jU0mPc3ny11H9heoAWqpEY++3+dEsxAvxzoC2EoOcdwCepuTGvwyMfq2rTEN7NYqB00jTQ=
-  distributions: "sdist bdist_wheel"
+    secure: DQt3VO1Ybw/jaqQ66TGHs9jzmuMiuSOiKOhKzAF9bV05zenTykacTSn0HHrJNGtWuiAZN2jo2y9UD5G+lawjXxqv5G+Mk8tuvtCWy/ZH4cVJT0wxZTvHEKgbvZ5r6brmsfKpvo5cTP+S/spyeCargTHgQ6Gth3GkjfL/pudUO2D/PoCmU9IylLdk/Dc3A95i7CNOEe6cmgb/h/wcMFxFsikQPc08/s6uRR2/CatEUEcWniByy7PuOVR+2xRtl0pAKgpc3YjKfdhzPeOFP+Id5VhIVhNkD9Aveb5WXjDuK67fTKKyfdCwMxS1Usn+nYMZB9GXZxcTJlu1Zzul/DqpdqS7UTqplFeAUd5m/ZLAIbuqpTzXw4vqstt6G++pJEefw88PbCNmly3aWO/28pD8Wz7qZ1OVVyJegBfFHsoQ4MQEbDecvM296v0xQ5+G9lXYMmuMPfcVU9R38E6MnrxIg7T7GSagvTcXBZVeXJGgfwS+LJihuyDDwgH6KVNRszALrQJtX6DvFQO0JNMhrl37+fq08dPP+DUhzH9VFGM94k9SA9nOSDP+2/6FOyOOQvQcOWkjgljvPTrJJOovQFNOOgF1XwyHycnZydsTWyO66iziDtUvGINNkpXBVjR3yIuXx4aCKoqgcUkPxWSpfvLNQPERo0F5iEbpZa0eQGXdapg=
+  distributions: sdist bdist_wheel
   on:
     branch: master
     python: 3.7
-
