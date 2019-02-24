@@ -104,8 +104,8 @@ class KaocClient(object):
             raise IdTokenVerificationError('nonce <> stored_nonce')
         if (time.time() > asobject['exp']):
             raise IdTokenVerificationError('now > exp')
-        if self.extender and hasattr(self.extender, 'verify_acr'):
-            self.extender.verify_acr(asobject)
+        if self.extender and hasattr(self.extender, 'verify_id_token'):
+            self.extender.verify_id_token(asobject)
 
 
 def initmod():
