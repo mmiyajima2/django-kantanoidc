@@ -26,6 +26,7 @@ class Start(View):
         client.prepare(request)
         redirect_uri = \
             request.build_absolute_uri(reverse('kantanoidc:callback'))
+        request.session['redirect_uri'] = redirect_uri
         return HttpResponseRedirect(
             client.build_starturl(redirect_uri, stored_nonce, stored_state)
         )
@@ -41,7 +42,8 @@ class Callback(View):
             raise IllegalStateError('state <> stored_state')
         code = request.GET.get('code')
         stored_nonce = request.session['stored_nonce']
-        sub = client.get_sub(code, stored_nonce)
+        redirect_uri = request.session['redirect_uri']
+        sub = client.get_sub(redirect_uri, code, stored_nonce)
         try:
             user = User.objects.get_by_natural_key(sub)
         except User.DoesNotExist as e:

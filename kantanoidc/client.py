@@ -41,11 +41,10 @@ class KaocClient(object):
         self.extender.prepare(request)
 
     def build_starturl(self, redirect_uri, stored_nonce, stored_state):
-        self.redirect_uri = redirect_uri
         params = {
             'response_type': 'code',
             'client_id': self.client_id,
-            'redirect_uri': self.redirect_uri,
+            'redirect_uri': redirect_uri,
             'scope': 'openid email',
             'nonce': stored_nonce,
             'state': stored_state,
@@ -63,12 +62,12 @@ class KaocClient(object):
         else:
             return self.extender.build_nexturl(request)
 
-    def get_sub(self, code, stored_nonce):
-        token = self.__get_token(code, stored_nonce)
+    def get_sub(self, redirect_uri, code, stored_nonce):
+        token = self.__get_token(redirect_uri, code, stored_nonce)
         userinfo = self.__get_userinfo(token)
         return userinfo['sub']
 
-    def __get_token(self, code, stored_nonce):
+    def __get_token(self, redirect_uri, code, stored_nonce):
         r = requests.post(
             url=self.token_endpoint,
             data={
@@ -76,7 +75,7 @@ class KaocClient(object):
                 'code': code,
                 'client_id': self.client_id,
                 'client_secret': self.client_secret,
-                'redirect_uri': self.redirect_uri,
+                'redirect_uri': redirect_uri,
             }
         )
         asobject = r.json()

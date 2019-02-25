@@ -44,18 +44,16 @@ class KaocClientTests(TestCase):
     @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub(self):
 
-        client.redirect_uri = 'https://test'
-        sub = client.get_sub('codevalue', 'noncevalue')
+        sub = client.get_sub('https://test', 'codevalue', 'noncevalue')
         self.assertEquals("me", sub)
 
     @patch('kantanoidc.client.requests.post', new=post_abn_aud)
     @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub_abn_aud(self):
 
-        client.redirect_uri = 'https://test'
         with self.assertRaises(
                 IdTokenVerificationError, msg='aud <> client_id'):
-            client.get_sub('codevalue', 'noncevalue')
+            client.get_sub('https://test', 'codevalue', 'noncevalue')
 
     @patch(
         'kantanoidc.client.requests.post',
@@ -64,10 +62,9 @@ class KaocClientTests(TestCase):
     @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub_abn_nonce(self):
 
-        client.redirect_uri = 'https://test'
         with self.assertRaises(
                 IdTokenVerificationError, msg='nonce <> stored_nonce'):
-            client.get_sub('codevalue', 'noncevalue')
+            client.get_sub('https://test', 'codevalue', 'noncevalue')
 
     @patch(
         'kantanoidc.client.requests.post',
@@ -76,7 +73,6 @@ class KaocClientTests(TestCase):
     @patch('kantanoidc.client.requests.get', new=get_normal)
     def test_get_sub_abn_exp(self):
 
-        client.redirect_uri = 'https://test'
         with self.assertRaises(
                 IdTokenVerificationError, msg='now > exp'):
-            client.get_sub('codevalue', 'noncevalue')
+            client.get_sub('https://test', 'codevalue', 'noncevalue')
