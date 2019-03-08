@@ -2,7 +2,7 @@ from logging import getLogger
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import login
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from .client import client
 from .errors import IllegalStateError
@@ -11,6 +11,7 @@ import random
 
 
 logger = getLogger(__name__)
+UserModel = get_user_model()
 
 
 class Start(View):
@@ -45,8 +46,8 @@ class Callback(View):
         redirect_uri = request.session['redirect_uri']
         sub = client.get_sub(redirect_uri, code, stored_nonce)
         try:
-            user = User.objects.get_by_natural_key(sub)
-        except User.DoesNotExist as e:
+            user = UserModel.objects.get_by_natural_key(sub)
+        except UserModel.DoesNotExist as e:
             logger.error('username=%s, does not exists', sub)
             raise e
         login(request, user)

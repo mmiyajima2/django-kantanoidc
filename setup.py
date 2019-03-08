@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='djangokantanoidc',
-    version='0.1.0',
+    version='0.1.1',
     packages=['kantanoidc'],
     license='MIT',
     description='Helper app as oidc client',
