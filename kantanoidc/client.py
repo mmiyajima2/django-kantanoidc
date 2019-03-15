@@ -109,6 +109,9 @@ class KaocClient(object):
 
 def initmod():
     global client
+    if not AUTH_SERVER:
+        logger.warn('AUTH_SERVER is falsy, Skip initial configration.')
+        return
     r = requests.get(
         url=(AUTH_SERVER + CONFIG_PATH),
     )
