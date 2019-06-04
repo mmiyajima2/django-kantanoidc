@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 Django = {version=">= 2.1.6", index="pypi"}
 requests = {version="*", index="pypi"}
+urllib3 = {version=">=1.24.2", index="pypi"}
 
 [dev-packages]
 twine = {version="*", index="pypi"}
