@@ -45,6 +45,7 @@ class Callback(View):
         stored_nonce = request.session['stored_nonce']
         redirect_uri = request.session['redirect_uri']
         sub = client.get_sub(redirect_uri, code, stored_nonce)
+        logger.info('%s coming at CallbackView', sub)
         try:
             user = UserModel.objects.get_by_natural_key(sub)
         except UserModel.DoesNotExist as e:
