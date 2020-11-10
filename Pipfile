@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-Django = {version=">= 2.2.4", index="pypi"}
+Django = {version=">= 2.2.13", index="pypi"}
 requests = {version="*", index="pypi"}
 urllib3 = {version=">=1.24.2", index="pypi"}
 
@@ -12,7 +12,3 @@ urllib3 = {version=">=1.24.2", index="pypi"}
 twine = {version="*", index="pypi"}
 jedi = {version="*", index="pypi"}
 "flake8" = {version="*", index="pypi"}
-coveralls = "*"
-
-[requires]
-python_version = "3.7"
